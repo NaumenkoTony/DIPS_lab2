@@ -1,4 +1,3 @@
-version: "3"
 services:
   postgres:
     image: library/postgres:13
@@ -14,7 +13,16 @@ services:
     ports:
       - "5432:5432"
 
-# TODO добавить сервисы
+  reservation_service:
+    build:
+      context: ./ReservationService
+      dockerfile: Dockerfile
+    container_name: ReservationService
+    restart: on-failure
+    depends_on:
+      - postgres
+    ports:
+      - "8070:8070"
 
 volumes:
   db-data:
