@@ -1,11 +1,11 @@
 using Microsoft.EntityFrameworkCore;
-using ReservationService.Data;
+using LoyaltyService.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
 
 builder.Services.AddDbContext<ReservationsContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("ReservationService")));
+    options.UseNpgsql(builder.Configuration.GetConnectionString("PaymentService")));
 
 builder.Services.AddAutoMapper(typeof(Program));
 

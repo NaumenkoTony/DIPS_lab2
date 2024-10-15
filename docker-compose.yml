@@ -8,10 +8,32 @@ services:
       POSTGRES_PASSWORD: "postgres"
       POSTGRES_DB: postgres
     volumes:
-      - db-data:/var/lib/postgresql/data
+      - ./db-data:/var/lib/postgresql/data
       - ./postgres/:/docker-entrypoint-initdb.d/
     ports:
       - "5432:5432"
+  
+  loyalty_service:
+    build:
+      context: ./LoyaltyService
+      dockerfile: Dockerfile
+    container_name: LoyaltyService
+    restart: on-failure
+    depends_on:
+      - postgres
+    ports:
+      - "8050:8050"
+
+  payment_service:
+    build:
+      context: ./PaymentService
+      dockerfile: Dockerfile
+    container_name: PaymentService
+    restart: on-failure
+    depends_on:
+      - postgres
+    ports:
+      - "8060:8060"
 
   reservation_service:
     build:
@@ -24,5 +46,14 @@ services:
     ports:
       - "8070:8070"
 
-volumes:
-  db-data:
+  gateway_service:
+    build:
+      context: ./GatewayService
+      dockerfile: Dockerfile
+    container_name: GatewayService
+    restart: on-failure
+    depends_on:
+      - postgres
+      - reservation_service
+    ports:
+      - "8080:8080"

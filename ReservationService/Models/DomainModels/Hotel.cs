@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace ReservationService.Models;
+﻿namespace ReservationService.Models.DomainModels;
 
 public partial class Hotel
 {

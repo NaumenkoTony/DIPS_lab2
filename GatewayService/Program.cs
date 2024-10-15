@@ -1,13 +1,10 @@
-using Microsoft.EntityFrameworkCore;
-using ReservationService.Data;
-
 var builder = WebApplication.CreateBuilder(args);
 builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
 
-builder.Services.AddDbContext<ReservationsContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("ReservationService")));
-
-builder.Services.AddAutoMapper(typeof(Program));
+builder.Services.AddHttpClient("ReservationService", client =>
+{
+    client.BaseAddress = new Uri("http://reservation_service:8070");
+});
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();

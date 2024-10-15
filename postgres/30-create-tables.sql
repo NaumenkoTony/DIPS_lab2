@@ -23,3 +23,26 @@ CREATE TABLE reservation
     start_date      TIMESTAMP WITH TIME ZONE,
     end_data        TIMESTAMP WITH TIME ZONE
 );
+
+\connect loyalties program
+
+CREATE TABLE loyalty
+(
+    id                SERIAL PRIMARY KEY,
+    username          VARCHAR(80) NOT NULL UNIQUE,
+    reservation_count INT         NOT NULL DEFAULT 0,
+    status            VARCHAR(80) NOT NULL DEFAULT 'BRONZE'
+        CHECK (status IN ('BRONZE', 'SILVER', 'GOLD')),
+    discount          INT         NOT NULL
+);
+
+\connect payments program
+
+CREATE TABLE payment
+(
+    id          SERIAL PRIMARY KEY,
+    payment_uid uuid        NOT NULL,
+    status      VARCHAR(20) NOT NULL
+        CHECK (status IN ('PAID', 'CANCELED')),
+    price       INT         NOT NULL
+);

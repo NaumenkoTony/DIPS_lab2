@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using ReservationService.Models;
+using ReservationService.Models.DomainModels;
 
 namespace ReservationService.Data;
 
