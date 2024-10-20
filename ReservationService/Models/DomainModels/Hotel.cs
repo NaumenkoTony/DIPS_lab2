@@ -4,7 +4,7 @@ public partial class Hotel
 {
     public int Id { get; set; }
 
-    public Guid HotelUid { get; set; }
+    public Guid HotelUid { get; set; } = Guid.NewGuid();
 
     public string Name { get; set; } = null!;
 

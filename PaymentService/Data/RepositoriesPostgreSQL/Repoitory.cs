@@ -1,6 +1,7 @@
 namespace ReservationService.Data.RepositoriesPostgreSQL;
 
 using Microsoft.EntityFrameworkCore;
+using PaymentService.Data;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -34,9 +35,15 @@ public class Repository<Model>(DbContext context) : IRepository<Model> where Mod
         }
     }
 
-    public async Task UpdateAsync(Model model)
+    public async Task UpdateAsync(Model entity, int id)
     {
-        db.Entry(model).State = EntityState.Modified;
+        var existingEntity = await db.Set<Model>().FindAsync(id);
+        if (existingEntity == null)
+        {
+            throw new KeyNotFoundException($"Entity with id {id} not found.");
+        }
+
+        db.Entry(existingEntity).CurrentValues.SetValues(entity);
         await db.SaveChangesAsync();
     }
 }

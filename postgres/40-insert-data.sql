@@ -2,7 +2,7 @@
 
 INSERT INTO hotels (
     id, 
-    hotelUid, 
+    hotel_uid, 
     name, 
     country, 
     city, 
@@ -23,7 +23,7 @@ VALUES (
 
 \connect loyalties program
 
-INSERT INTO loyalty: (
+INSERT INTO loyalty (
     id, 
     username, 
     reservation_count, 
@@ -34,6 +34,6 @@ VALUES (
     1, 
     'Test Max', 
     25,
-    'Gold', 
+    'GOLD', 
     10
 );

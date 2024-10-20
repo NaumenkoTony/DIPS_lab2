@@ -9,10 +9,31 @@ public class ReservationRepository(ReservationsContext context) : Repository<Res
 {
     private ReservationsContext db = context;
 
-    public async Task<IEnumerable<Reservation>> GetReservationsByUsername(string username)
+    public async Task<IEnumerable<Reservation>> GetReservationsByUsernameAsync(string username)
     {
         return await db.Reservations
                        .Where(r => r.Username == username)
                        .ToListAsync(); 
+    }
+
+    public async Task<Reservation?> GetByUidAsync(string uid)
+    {
+        if (!Guid.TryParse(uid, out Guid parsedUid))
+        {
+            return null;
+        }
+        
+        return await db.Reservations.FirstOrDefaultAsync(h => h.ReservationUid == parsedUid);
+    }
+
+    public async Task<Reservation?> GetByUsernameUidAsync(string username, string uid)
+    {
+        if (!Guid.TryParse(uid, out Guid parsedUid))
+        {
+            return null;
+        }
+        
+        return await db.Reservations.FirstOrDefaultAsync(h => h.ReservationUid == parsedUid && h.Username == username);
+
     }
 }

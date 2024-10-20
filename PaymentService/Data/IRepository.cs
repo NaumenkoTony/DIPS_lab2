@@ -1,4 +1,4 @@
-namespace ReservationService.Data;
+namespace PaymentService.Data;
 
 public interface IRepository<Model> where Model : class
 {
@@ -8,7 +8,7 @@ public interface IRepository<Model> where Model : class
 
     Task<Model?> ReadAsync(int id);
 
-    Task UpdateAsync(Model model);
+    Task UpdateAsync(Model entity, int id);
 
     Task DeleteAsync(int id);
 }

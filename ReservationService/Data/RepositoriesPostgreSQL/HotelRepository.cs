@@ -9,11 +9,21 @@ public class HotelRepository(ReservationsContext context) : Repository<Hotel>(co
 {
     private ReservationsContext db = context;    
 
-    public async Task<IEnumerable<Hotel>> GetHotels(int page, int size)
+    public async Task<IEnumerable<Hotel>> GetHotelsAsync(int page, int size)
     {
         return await db.Hotels
-                       .Skip((page) * size)
+                       .Skip(page * size)
                        .Take(size)
                        .ToListAsync();
+    }
+
+    public async Task<Hotel?> GetByUidAsync(string uid)
+    {
+        if (!Guid.TryParse(uid, out Guid parsedUid))
+        {
+            return null;
+        }
+        
+        return await db.Hotels.FirstOrDefaultAsync(h => h.HotelUid == parsedUid);
     }
 }

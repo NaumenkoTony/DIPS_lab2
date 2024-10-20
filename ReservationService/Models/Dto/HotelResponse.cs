@@ -1,20 +1,20 @@
-namespace ReservationService.Models.DomainModels;
+namespace ReservationService.Models.Dto;
 
 public partial class HotelResponse
 {
-    public Guid HotelUid { get; set; }
+    public required string Id { get; set; }
+    
+    public required string HotelUid { get; set; }
 
-    public string Name { get; set; } = null!;
+    public required string Name { get; set; }
 
-    public string Country { get; set; } = null!;
+    public required string Country { get; set; }
 
-    public string City { get; set; } = null!;
+    public required string City { get; set; }
 
-    public string Address { get; set; } = null!;
+    public required string Address { get; set; }
 
     public int? Stars { get; set; }
 
     public int Price { get; set; }
-
-    public virtual ICollection<Reservation> Reservations { get; set; } = new List<Reservation>();
 }
