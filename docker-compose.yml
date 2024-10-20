@@ -12,28 +12,17 @@ services:
       - ./postgres/:/docker-entrypoint-initdb.d/
     ports:
       - "5432:5432"
-  
-  loyalty_service:
-    build:
-      context: ./LoyaltyService
-      dockerfile: Dockerfile
-    container_name: LoyaltyService
-    restart: on-failure
-    depends_on:
-      - postgres
-    ports:
-      - "8050:8050"
 
-  payment_service:
+  gateway_service:
     build:
-      context: ./PaymentService
+      context: ./GatewayService
       dockerfile: Dockerfile
-    container_name: PaymentService
+    container_name: GatewayService
     restart: on-failure
     depends_on:
       - postgres
     ports:
-      - "8060:8060"
+      - "8080:8080"
 
   reservation_service:
     build:
@@ -46,13 +35,24 @@ services:
     ports:
       - "8070:8070"
 
-  gateway_service:
+  payment_service:
     build:
-      context: ./GatewayService
+      context: ./PaymentService
       dockerfile: Dockerfile
-    container_name: GatewayService
+    container_name: PaymentService
     restart: on-failure
     depends_on:
       - postgres
     ports:
-      - "8080:8080"
+      - "8060:8060"
+
+  loyalty_service:
+    build:
+      context: ./LoyaltyService
+      dockerfile: Dockerfile
+    container_name: LoyaltyService
+    restart: on-failure
+    depends_on:
+      - postgres
+    ports:
+      - "8050:8050"
