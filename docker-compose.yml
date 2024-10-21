@@ -15,7 +15,7 @@ services:
   
   loyalty_service:
     build:
-      context: .
+      context: ./LoyaltyService
       dockerfile: Dockerfile
     container_name: LoyaltyService
     restart: on-failure
@@ -26,7 +26,7 @@ services:
 
   payment_service:
     build:
-      context: .
+      context: ./PaymentService
       dockerfile: Dockerfile
     container_name: PaymentService
     restart: on-failure
@@ -37,7 +37,7 @@ services:
 
   reservation_service:
     build:
-      context: .
+      context: ./ReservationService
       dockerfile: Dockerfile
     container_name: ReservationService
     restart: on-failure
@@ -48,7 +48,7 @@ services:
 
   gateway_service:
     build:
-      context: .
+      context: ./GatewayService
       dockerfile: Dockerfile
     container_name: GatewayService
     restart: on-failure
@@ -59,17 +59,3 @@ services:
       - loyalty_service
     ports:
       - "8080:8080"
-
-  test_service:
-    build:
-      context: .
-      dockerfile: Dockerfile
-      target: build-tests
-    container_name: TestService
-    restart: "no"
-    depends_on:
-      - gateway_service
-      - payment_service
-      - loyalty_service
-      - reservation_service
-    command: ["dotnet", "test"]
