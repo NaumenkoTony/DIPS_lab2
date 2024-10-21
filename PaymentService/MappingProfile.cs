@@ -1,3 +1,5 @@
+namespace PaymentService.Mapping;
+
 using AutoMapper;
 using PaymentService.Models.DomainModels;
 using PaymentService.Models.Dto;

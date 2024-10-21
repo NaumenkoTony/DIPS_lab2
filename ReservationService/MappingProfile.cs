@@ -1,3 +1,5 @@
+namespace ReservationService.Mapping;
+
 using AutoMapper;
 using Microsoft.AspNetCore.SignalR;
 using ReservationService.Models.DomainModels;
